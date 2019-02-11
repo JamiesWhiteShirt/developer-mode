@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "com.jamieswhiteshirt.developermode.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "client.gui.SplashScreenMixin",
+    "client.gui.MainMenuScreenMixin",
+    "client.util.WindowMixin",
+    "client.gui.menu.NewLevelScreenMixin",
+    "client.gui.menu.LevelSelectScreen$3Mixin",
+    "client.gui.menu.LevelSelectScreenMixin",
+    "client.options.GameOptionsMixin",
+    "client.RunArgsMixin",
+    "client.main.MainMixin",
+    "client.MinecraftClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

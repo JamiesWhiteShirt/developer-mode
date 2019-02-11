@@ -1,0 +1,14 @@
+{
+  "id": "developer-mode",
+  "name": "Developer Mode",
+  "description": "A few things to make development easier.",
+  "version": "1.0.0",
+  "side": "universal",
+  "initializers": [
+    "com.jamieswhiteshirt.developermode.client.DeveloperModeClient"
+  ],
+  "mixins": {
+    "client": "mixins.developer-mode.client.json",
+    "common": "mixins.developer-mode.common.json"
+  }
+}

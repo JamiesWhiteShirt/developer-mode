@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.jamieswhiteshirt.developermode.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "world.level.LevelInfoMixin",
+    "world.level.LevelPropertiesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

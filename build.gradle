@@ -1,0 +1,62 @@
+plugins {
+    id "fabric-loom" version "0.2.0-SNAPSHOT"
+    id "maven"
+    id "signing"
+}
+
+group = "com.jamieswhiteshirt"
+archivesBaseName = "developer-mode"
+version = "1.0.0"
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+minecraft {
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:19w06a"
+    mappings "net.fabricmc:yarn:19w06a.3"
+    modCompile "net.fabricmc:fabric-loader:0.3.5.106"
+
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+    archives(jar.archivePath) {
+        builtBy remapJar
+    }
+    archives(sourcesJar.archivePath) {
+        builtBy remapSourcesJar
+    }
+}
+
+project.ext.isReleaseVersion = !version.endsWith("-SNAPSHOT")
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: 'https://maven.jamieswhiteshirt.com/libs-release/') {
+            authentication(userName: project.properties.mavenUser, password: project.properties.mavenPassword)
+        }
+        snapshotRepository(url: 'https://maven.jamieswhiteshirt.com/libs-snapshot/') {
+            authentication(userName: project.properties.mavenUser, password: project.properties.mavenPassword)
+        }
+
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+    }
+}

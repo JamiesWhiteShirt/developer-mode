@@ -45,9 +45,9 @@ public abstract class NewLevelScreenMixin implements NewLevelScreenExtension {
     @ModifyVariable(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/level/LevelInfo;method_8579(Lcom/google/gson/JsonElement;)Lnet/minecraft/world/level/LevelInfo;"
+            target = "Lnet/minecraft/world/level/LevelInfo;setGeneratorOptions(Lcom/google/gson/JsonElement;)Lnet/minecraft/world/level/LevelInfo;"
         ),
-        method = "method_2736()V"
+        method = "createLevel()V"
     )
     private LevelInfo modifyLevelInfo(LevelInfo original) {
         LevelInfoExtension extension = (LevelInfoExtension) (Object) original;

@@ -26,7 +26,7 @@ public abstract class LevelSelectScreenMixin extends Screen implements LevelSele
     public void developermode_openOrCreateLevel(String name) {
         try {
             LevelStorage levelStorage = client.getLevelStorage();
-            Optional<LevelSummary> optLevel = levelStorage.getAvailableLevels().stream()
+            Optional<LevelSummary> optLevel = levelStorage.getLevelList().stream()
                 .filter(level -> level.getName().equals(name))
                 .findFirst();
             if (optLevel.isPresent()) {

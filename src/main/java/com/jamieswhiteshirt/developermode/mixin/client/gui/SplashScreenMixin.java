@@ -1,9 +1,9 @@
 package com.jamieswhiteshirt.developermode.mixin.client.gui;
 
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
-import net.minecraft.class_4011;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.SplashScreen;
+import net.minecraft.client.resource.ResourceLoadProgressProvider;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,8 +13,8 @@ import java.util.function.Consumer;
 
 @Mixin(SplashScreen.class)
 public abstract class SplashScreenMixin extends Screen {
-    @Shadow @Final private Consumer<SplashScreen> field_17768;
-    @Shadow @Final private class_4011 field_17767;
+    @Shadow @Final private Consumer<SplashScreen> splashScreenConsumer;
+    @Shadow @Final private ResourceLoadProgressProvider field_17767;
 
     @ModifyConstant(
         constant = @Constant(
@@ -45,7 +45,7 @@ public abstract class SplashScreenMixin extends Screen {
             target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V",
             ordinal = 0
         ),
-        method = "method_18103(IIIIFF)V",
+        method = "renderProgressBar(IIIIFF)V",
         index = 4
     )
     private int progressBarOutlineColor(int i) {
@@ -58,7 +58,7 @@ public abstract class SplashScreenMixin extends Screen {
             target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V",
             ordinal = 1
         ),
-        method = "method_18103(IIIIFF)V",
+        method = "renderProgressBar(IIIIFF)V",
         index = 4
     )
     private int progressBarBackgroundColor(int i) {
@@ -71,7 +71,7 @@ public abstract class SplashScreenMixin extends Screen {
             target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V",
             ordinal = 2
         ),
-        method = "method_18103(IIIIFF)V",
+        method = "renderProgressBar(IIIIFF)V",
         index = 4
     )
     private int progressBarFillColor(int i) {

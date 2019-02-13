@@ -3,19 +3,11 @@ package com.jamieswhiteshirt.developermode.mixin.client.gui;
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.SplashScreen;
-import net.minecraft.client.resource.ResourceLoadProgressProvider;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
-
-import java.util.function.Consumer;
 
 @Mixin(SplashScreen.class)
 public abstract class SplashScreenMixin extends Screen {
-    @Shadow @Final private Consumer<SplashScreen> splashScreenConsumer;
-    @Shadow @Final private ResourceLoadProgressProvider field_17767;
-
     @ModifyConstant(
         constant = @Constant(
             floatValue = 1000.F

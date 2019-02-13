@@ -2,6 +2,7 @@ package com.jamieswhiteshirt.developermode.client;
 
 import com.jamieswhiteshirt.developermode.DeveloperMode;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 
 import java.io.*;
@@ -47,8 +48,7 @@ public class DeveloperModeClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        File runDirectory = MinecraftClient.getInstance().runDirectory;
-        File configDirectory = new File(runDirectory, "config/developer-mode");
+        File configDirectory = new File(FabricLoader.getInstance().getConfigDirectory(), "developer-mode");
         File clientConfig = new File(configDirectory, "client.config.properties");
         Properties properties = new Properties();
         if (configDirectory.exists() || configDirectory.mkdirs()) {

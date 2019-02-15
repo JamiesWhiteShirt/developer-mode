@@ -6,7 +6,7 @@ plugins {
 
 group = "com.jamieswhiteshirt"
 archivesBaseName = "developer-mode"
-version = "1.0.0"
+version = "1.0.1"
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 

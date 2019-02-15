@@ -47,7 +47,8 @@ public abstract class MainMixin {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/MinecraftClient;<init>(Lnet/minecraft/client/RunArgs;)V"
+            target = "Lnet/minecraft/client/MinecraftClient;<init>(Lnet/minecraft/client/RunArgs;)V",
+            remap = true
         ),
         method = "main([Ljava/lang/String;)V",
         index = 0,

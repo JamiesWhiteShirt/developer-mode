@@ -24,7 +24,7 @@ dependencies {
     mappings "net.fabricmc:yarn:19w08a.4"
     modCompile "net.fabricmc:fabric-loader:0.3.7.109"
 
-    implementation "com.google.code.findbugs:jsr305:3.0.2"
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

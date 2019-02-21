@@ -28,7 +28,7 @@ public abstract class MainMenuScreenMixin {
         constant = @Constant(
             floatValue = 1000.F
         ),
-        method = "method_18326(IIF)V"
+        method = "draw(IIF)V"
     )
     private float modifyFadeTime1(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 2.0F;

@@ -32,7 +32,7 @@ public abstract class SplashScreenMixin extends class_4071 {
         constant = @Constant(
             floatValue = 1000.F
         ),
-        method = "method_18326(IIF)V"
+        method = "draw(IIF)V"
     )
     private float modifyFadeTime1(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 2.0F;
@@ -42,7 +42,7 @@ public abstract class SplashScreenMixin extends class_4071 {
         constant = @Constant(
             floatValue = 500.F
         ),
-        method = "method_18326(IIF)V"
+        method = "draw(IIF)V"
     )
     private float modifyFadeTime2(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 4.0F;
@@ -53,7 +53,7 @@ public abstract class SplashScreenMixin extends class_4071 {
             value = "INVOKE",
             target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V"
         ),
-        method = "method_18326(IIF)V",
+        method = "draw(IIF)V",
         index = 4
     )
     private int backgroundColor(int x, int y, int width, int height, int color) {

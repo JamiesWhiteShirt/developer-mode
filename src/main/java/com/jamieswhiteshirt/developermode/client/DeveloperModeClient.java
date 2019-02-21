@@ -3,7 +3,6 @@ package com.jamieswhiteshirt.developermode.client;
 import com.jamieswhiteshirt.developermode.DeveloperMode;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 
 import java.io.*;
 import java.util.Properties;
@@ -18,7 +17,7 @@ public class DeveloperModeClient implements ClientModInitializer {
         String value = properties.getProperty(key);
         if (value != null) {
             try {
-                return 0xFF000000 | Integer.parseInt(value, 16);
+                return Integer.parseInt(value, 16);
             } catch (NumberFormatException ignored) {
                 DeveloperMode.LOGGER.error("Invalid property value for " + key + " in client config. Expected hexadecimal RRGGBB.");
             }

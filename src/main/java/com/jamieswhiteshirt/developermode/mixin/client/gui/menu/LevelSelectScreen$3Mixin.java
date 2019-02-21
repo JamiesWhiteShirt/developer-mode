@@ -13,8 +13,8 @@ import java.io.File;
 
 @Mixin(targets = "net.minecraft.client.gui.menu.LevelSelectScreen$3")
 public abstract class LevelSelectScreen$3Mixin extends ButtonWidget {
-    public LevelSelectScreen$3Mixin(int int_1, int int_2, int int_3, String string_1) {
-        super(int_1, int_2, int_3, string_1);
+    public LevelSelectScreen$3Mixin(int int_1, int int_2, String string_1) {
+        super(int_1, int_2, string_1);
     }
 
     @ModifyArg(

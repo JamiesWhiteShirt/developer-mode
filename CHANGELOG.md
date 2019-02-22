@@ -1,3 +1,8 @@
+# 1.0.3
+
+- Made jsr305 a compileOnly dependency (#1).
+- Removed unintended feature causing the splash message to not move.
+
 # 1.0.2
 
 - Updated to 19w08.

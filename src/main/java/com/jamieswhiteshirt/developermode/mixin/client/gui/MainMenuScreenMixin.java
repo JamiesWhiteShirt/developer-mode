@@ -26,7 +26,8 @@ public abstract class MainMenuScreenMixin {
 
     @ModifyConstant(
         constant = @Constant(
-            floatValue = 1000.F
+            floatValue = 1000.F,
+            ordinal = 0
         ),
         method = "draw(IIF)V"
     )

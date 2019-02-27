@@ -4,7 +4,7 @@ import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
 import net.minecraft.class_4071;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.SplashScreen;
-import net.minecraft.resource.ResourceReloadHandler;
+import net.minecraft.resource.ResourceReloadMonitor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -20,9 +20,9 @@ public abstract class SplashScreenMixin extends class_4071 {
 
     @Inject(
         at = @At("RETURN"),
-        method = "<init>(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/resource/ResourceReloadHandler;Ljava/lang/Runnable;Z)V"
+        method = "<init>(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/resource/ResourceReloadMonitor;Ljava/lang/Runnable;Z)V"
     )
-    private void constructor(MinecraftClient minecraftClient_1, ResourceReloadHandler resourceReloadHandler_1, Runnable runnable_1, boolean boolean_1, CallbackInfo ci) {
+    private void constructor(MinecraftClient minecraftClient_1, ResourceReloadMonitor resourceReloadHandler_1, Runnable runnable_1, boolean boolean_1, CallbackInfo ci) {
         if (DeveloperModeClient.splashFadeTime <= 0) {
             field_18219 = true;
         }

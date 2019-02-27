@@ -15,8 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SplashScreen.class)
 public abstract class SplashScreenMixin extends class_4071 {
     @Mutable @Shadow @Final private boolean field_18219;
-
-    @Shadow @Final private MinecraftClient field_18217;
+    @Shadow @Final private MinecraftClient client;
 
     @Inject(
         at = @At("RETURN"),
@@ -59,7 +58,7 @@ public abstract class SplashScreenMixin extends class_4071 {
     private int backgroundColor(int x, int y, int width, int height, int color) {
         // In case someone else injects drawRect calls in this method
         // We'll assume it's drawing a background if drawRect covers the whole screen exactly
-        if (x == 0 && y == 0 && width == field_18217.window.getScaledWidth() && height == field_18217.window.getScaledHeight()) {
+        if (x == 0 && y == 0 && width == client.window.getScaledWidth() && height == client.window.getScaledHeight()) {
             return DeveloperModeClient.theme.getBackgroundColor(color);
         } else {
             return color;

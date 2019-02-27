@@ -1,3 +1,7 @@
+# 1.0.4
+
+- Updated to 19w09a.
+
 # 1.0.3
 
 - Made jsr305 a compileOnly dependency (#1).

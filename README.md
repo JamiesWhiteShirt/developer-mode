@@ -9,7 +9,7 @@ A few things to make development easier with [Fabric](https://fabricmc.net/).
 - Configurable loading screen fade time: Instant by default.
 - Remember New World settings: Enabled by default.
 - Global client options: Enabled for most options by default.
-- `-world $WORLDNAME` client program argument to instantly create and/or open a world on launch.
+- `--world $WORLDNAME` client program argument to instantly create and/or open a world on launch.
 
 ## Usage
 
@@ -94,10 +94,10 @@ Meta-options file. For each option determines whether the option is `global` or 
 If global, the option will be saved and loaded from the current user's preferences.
 If local, the option will not be saved or loaded from the current user's preferences.
 
-### `-world $WORLDNAME`
+### `--world $WORLDNAME`
 
 Add to the client program arguments to immediately load into a world when loading is complete.
-The world name must match a directory name in the saves directory. Example: `-world "New World"`.
+The world name must match a directory name in the saves directory. Example: `--world "New World"`.
 If the world does not exist, a New World screen is opened.
 
 ## Developing Developer Mode

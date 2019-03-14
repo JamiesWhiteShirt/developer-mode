@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MainMenuScreen.class)
 public abstract class MainMenuScreenMixin {
-    @Shadow private boolean field_2599;
+    @Shadow private boolean doBackgroundFade;
 
     @Inject(
         at = @At("RETURN"),
@@ -20,7 +20,7 @@ public abstract class MainMenuScreenMixin {
     )
     private void constructor(boolean boolean_1, CallbackInfo ci) {
         if (DeveloperModeClient.splashFadeTime <= 0) {
-            field_2599 = false;
+            doBackgroundFade = false;
         }
     }
 

@@ -7,7 +7,7 @@
     "client.gui.MainMenuScreenMixin",
     "client.util.WindowMixin",
     "client.gui.menu.NewLevelScreenMixin",
-    "client.gui.menu.LevelSelectScreen$3Mixin",
+    "client.gui.menu.LevelSelectScreen$2Mixin",
     "client.gui.menu.LevelSelectScreenMixin",
     "client.options.GameOptionsMixin",
     "client.RunArgsMixin",

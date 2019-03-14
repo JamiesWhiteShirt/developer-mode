@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.io.File;
 
-@Mixin(targets = "net.minecraft.client.gui.menu.LevelSelectScreen$3")
-public abstract class LevelSelectScreen$3Mixin extends ButtonWidget {
-    public LevelSelectScreen$3Mixin(int int_1, int int_2, String string_1) {
+@Mixin(targets = "net.minecraft.client.gui.menu.LevelSelectScreen$2")
+public abstract class LevelSelectScreen$2Mixin extends ButtonWidget {
+    public LevelSelectScreen$2Mixin(int int_1, int int_2, String string_1) {
         super(int_1, int_2, string_1);
     }
 
@@ -22,7 +22,7 @@ public abstract class LevelSelectScreen$3Mixin extends ButtonWidget {
             value = "INVOKE",
             target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/Screen;)V"
         ),
-        method = "onPressed(DD)V"
+        method = "method_1826()V"
     )
     private Screen modifyOpenScreen(Screen original) {
         if (DeveloperModeClient.rememberNewWorldSettingsEnabled) {

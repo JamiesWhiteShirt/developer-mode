@@ -148,8 +148,11 @@ public abstract class GameOptionsMixin {
         // Overwrite global options
         for (Map.Entry<String, String> optionShare : optionsShare.entrySet()) {
             String key = optionShare.getKey();
-            if (optionShare.getValue().equalsIgnoreCase("true")) {
-                developermode_globalPreferences.put(key, localOptions.get(key));
+            if (optionShare.getValue().equalsIgnoreCase("global")) {
+                String localOption = localOptions.get(key);
+                if (localOption != null) {
+                    developermode_globalPreferences.put(key, localOption);
+                }
             }
         }
     }

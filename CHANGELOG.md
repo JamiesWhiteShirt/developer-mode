@@ -1,3 +1,7 @@
+# 1.0.7
+
+- Fixed bug causing global options to not be overwritten.
+
 # 1.0.6
 
 - Updated to 10w12a.

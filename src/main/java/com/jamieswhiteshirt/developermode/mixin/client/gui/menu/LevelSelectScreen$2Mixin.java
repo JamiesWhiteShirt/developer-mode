@@ -22,7 +22,7 @@ public abstract class LevelSelectScreen$2Mixin extends ButtonWidget {
             value = "INVOKE",
             target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/Screen;)V"
         ),
-        method = "method_1826()V"
+        method = "onPressed()V"
     )
     private Screen modifyOpenScreen(Screen original) {
         if (DeveloperModeClient.rememberNewWorldSettingsEnabled) {

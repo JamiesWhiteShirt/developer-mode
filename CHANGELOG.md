@@ -1,3 +1,7 @@
+# 1.0.6
+
+- Updated to 10w12a.
+
 # 1.0.5
 
 - Updated to 19w11b.

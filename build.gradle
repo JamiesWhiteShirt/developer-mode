@@ -6,7 +6,7 @@ plugins {
 
 group = "com.jamieswhiteshirt"
 archivesBaseName = "developer-mode"
-version = "1.0.5"
+version = "1.0.6"
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -20,8 +20,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:19w11b"
-    mappings "net.fabricmc:yarn:19w11b.3"
+    minecraft "com.mojang:minecraft:19w12a"
+    mappings "net.fabricmc:yarn:19w12a.1"
     modCompile "net.fabricmc:fabric-loader:0.3.7.109"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"

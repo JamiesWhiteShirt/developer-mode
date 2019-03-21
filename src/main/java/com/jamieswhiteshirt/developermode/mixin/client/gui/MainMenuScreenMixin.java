@@ -29,7 +29,8 @@ public abstract class MainMenuScreenMixin {
             floatValue = 1000.F,
             ordinal = 0
         ),
-        method = "render(IIF)V"
+        method = "render(IIF)V",
+        remap = false
     )
     private float modifyFadeTime1(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 2.0F;

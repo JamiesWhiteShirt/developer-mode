@@ -25,7 +25,7 @@ public abstract class NewLevelScreenMixin implements NewLevelScreenExtension {
 
     @Shadow private String seed;
     @Shadow private int generatorType;
-    @Shadow public CompoundTag field_3200;
+    @Shadow public CompoundTag field_18979;
     @Shadow private boolean structures;
     @Shadow private boolean commandsAllowed;
     @Shadow private String gameMode;
@@ -93,7 +93,7 @@ public abstract class NewLevelScreenMixin implements NewLevelScreenExtension {
         NewLevelProperties properties = new NewLevelProperties();
         properties.randomSeed = seed;
         properties.generatorName = LevelGeneratorType.TYPES[generatorType].getName();
-        properties.generatorOptions = (CompoundTag) field_3200.copy();
+        properties.generatorOptions = (CompoundTag) field_18979.copy();
         properties.mapFeatures = structures;
         properties.allowCommands = commandsAllowed;
         properties.bonusItems = enableBonusItems;
@@ -106,7 +106,7 @@ public abstract class NewLevelScreenMixin implements NewLevelScreenExtension {
         seed = properties.randomSeed;
         LevelGeneratorType levelGeneratorType = LevelGeneratorType.getTypeFromName(properties.generatorName);
         generatorType = levelGeneratorType != null ? levelGeneratorType.getId() : 0;
-        field_3200 = (CompoundTag) properties.generatorOptions.copy();
+        field_18979 = (CompoundTag) properties.generatorOptions.copy();
         structures = properties.mapFeatures;
         commandsAllowed = properties.allowCommands;
         enableBonusItems = properties.bonusItems;

@@ -1,8 +1,8 @@
 package com.jamieswhiteshirt.developermode.mixin.client.gui;
 
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
-import net.minecraft.class_4071;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Overlay;
 import net.minecraft.client.gui.SplashScreen;
 import net.minecraft.resource.ResourceReloadMonitor;
 import org.spongepowered.asm.mixin.Final;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SplashScreen.class)
-public abstract class SplashScreenMixin extends class_4071 {
+public abstract class SplashScreenMixin extends Overlay {
     @Mutable @Shadow @Final private boolean field_18219;
     @Shadow @Final private MinecraftClient client;
 
@@ -31,7 +31,7 @@ public abstract class SplashScreenMixin extends class_4071 {
         constant = @Constant(
             floatValue = 1000.F
         ),
-        method = "draw(IIF)V"
+        method = "render(IIF)V"
     )
     private float modifyFadeTime1(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 2.0F;
@@ -41,7 +41,7 @@ public abstract class SplashScreenMixin extends class_4071 {
         constant = @Constant(
             floatValue = 500.F
         ),
-        method = "draw(IIF)V"
+        method = "render(IIF)V"
     )
     private float modifyFadeTime2(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 4.0F;
@@ -52,7 +52,7 @@ public abstract class SplashScreenMixin extends class_4071 {
             value = "INVOKE",
             target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V"
         ),
-        method = "draw(IIF)V",
+        method = "render(IIF)V",
         index = 4
     )
     private int backgroundColor(int x, int y, int width, int height, int color) {

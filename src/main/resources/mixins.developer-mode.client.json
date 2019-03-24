@@ -12,7 +12,8 @@
     "client.RunArgsMixin",
     "client.main.MainMixin",
     "client.MinecraftClientMixin",
-    "realms.RealmsBridgeMixin"
+    "realms.RealmsBridgeMixin",
+    "client.gui.widget.TextFieldWidgetMixin"
   ],
   "injectors": {
     "defaultRequire": 1

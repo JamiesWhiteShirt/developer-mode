@@ -2,10 +2,15 @@ package com.jamieswhiteshirt.developermode.mixin.client.gui.menu;
 
 import com.jamieswhiteshirt.developermode.DeveloperMode;
 import com.jamieswhiteshirt.developermode.client.NewLevelProperties;
+import com.jamieswhiteshirt.developermode.client.gui.menu.GameRulesScreen;
 import com.jamieswhiteshirt.developermode.client.gui.menu.NewLevelScreenExtension;
 import com.jamieswhiteshirt.developermode.common.world.level.LevelInfoExtension;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.menu.NewLevelScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.TextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.level.LevelGeneratorType;
 import net.minecraft.world.level.LevelInfo;
@@ -19,9 +24,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.io.*;
 
 @Mixin(NewLevelScreen.class)
-public abstract class NewLevelScreenMixin implements NewLevelScreenExtension {
+public abstract class NewLevelScreenMixin extends Screen implements NewLevelScreenExtension {
     private File developermode_propertiesFile;
     private GameRules developermode_gameRules = new GameRules();
+    private ButtonWidget gameRulesButton;
 
     @Shadow private String seed;
     @Shadow private int generatorType;
@@ -31,6 +37,10 @@ public abstract class NewLevelScreenMixin implements NewLevelScreenExtension {
     @Shadow private String gameMode;
     @Shadow private boolean enableBonusItems;
     @Shadow private String levelName;
+
+    protected NewLevelScreenMixin(TextComponent textComponent_1) {
+        super(textComponent_1);
+    }
 
     @Inject(
         at = @At("RETURN"),
@@ -53,6 +63,27 @@ public abstract class NewLevelScreenMixin implements NewLevelScreenExtension {
         LevelInfoExtension extension = (LevelInfoExtension) (Object) original;
         extension.developermode_setGameRules(developermode_gameRules);
         return original;
+    }
+
+    @Inject(
+        method = "onInitialized()V",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/gui/menu/NewLevelScreen;method_2710(Z)V"
+        )
+    )
+    private void onInitialized(CallbackInfo ci) {
+        gameRulesButton = this.addButton(new ButtonWidget(2 * this.screenWidth / 3 + 5, 187, 80, 20, I18n.translate("developermode.gameRules"), (buttonWidget_1) -> {
+            client.openScreen(new GameRulesScreen(developermode_gameRules, (NewLevelScreen) (Object) this));
+        }));
+    }
+
+    @Inject(
+        method = "method_2710(Z)V",
+        at = @At("TAIL")
+    )
+    private void method_2710(boolean showMoreOptions, CallbackInfo ci) {
+        gameRulesButton.visible = showMoreOptions;
     }
 
     @Override

@@ -48,11 +48,14 @@ splash.fade.time=0
 
 # Sets the log level for realms error messages
 realms.errorLogLevel=DEBUG
+
+# GUI to edit game rules for New World
+gameRulesGui.enabled=true
 ```
 
 ### `./newWorldSettings.json`
 
-Automatically synchronized with settings in New World. NOTE: `"gameRules"` can currently only be modified in the file itself.
+Automatically synchronized with settings in New World.
 
 ```json
 {

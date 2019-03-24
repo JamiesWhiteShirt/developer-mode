@@ -15,6 +15,7 @@ public class DeveloperModeClient implements ClientModInitializer {
     public static boolean rememberNewWorldSettingsEnabled;
     public static int splashFadeTime;
     public static Level realmsErrorLogLevel;
+    public static boolean gameRulesGuiEnabled;
 
     private static Integer getColorProperty(Properties properties, String key) {
         String value = properties.getProperty(key);
@@ -100,5 +101,6 @@ public class DeveloperModeClient implements ClientModInitializer {
         rememberNewWorldSettingsEnabled = getBooleanProperty(properties, "rememberNewWorldSettings.enabled", false);
         splashFadeTime = getIntProperty(properties, "splash.fade.time", 1000);
         realmsErrorLogLevel = getLogLevelProperty(properties, "realms.errorLogLevel", Level.DEBUG);
+        gameRulesGuiEnabled = getBooleanProperty(properties, "gameRulesGui.enabled", true);
     }
 }

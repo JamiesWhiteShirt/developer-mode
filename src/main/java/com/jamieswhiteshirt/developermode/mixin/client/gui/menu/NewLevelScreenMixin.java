@@ -1,6 +1,7 @@
 package com.jamieswhiteshirt.developermode.mixin.client.gui.menu;
 
 import com.jamieswhiteshirt.developermode.DeveloperMode;
+import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
 import com.jamieswhiteshirt.developermode.client.NewLevelProperties;
 import com.jamieswhiteshirt.developermode.client.gui.menu.GameRulesScreen;
 import com.jamieswhiteshirt.developermode.client.gui.menu.NewLevelScreenExtension;
@@ -83,7 +84,7 @@ public abstract class NewLevelScreenMixin extends Screen implements NewLevelScre
         at = @At("TAIL")
     )
     private void method_2710(boolean showMoreOptions, CallbackInfo ci) {
-        gameRulesButton.visible = showMoreOptions;
+        gameRulesButton.visible = showMoreOptions && DeveloperModeClient.gameRulesGuiEnabled;
     }
 
     @Override

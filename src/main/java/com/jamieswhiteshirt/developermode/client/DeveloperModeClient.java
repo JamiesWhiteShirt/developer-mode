@@ -3,6 +3,8 @@ package com.jamieswhiteshirt.developermode.client;
 import com.jamieswhiteshirt.developermode.DeveloperMode;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.util.Properties;
@@ -12,6 +14,7 @@ public class DeveloperModeClient implements ClientModInitializer {
     public static boolean shareOptionsEnabled;
     public static boolean rememberNewWorldSettingsEnabled;
     public static int splashFadeTime;
+    public static Level realmsErrorLogLevel;
 
     private static Integer getColorProperty(Properties properties, String key) {
         String value = properties.getProperty(key);
@@ -41,6 +44,19 @@ public class DeveloperModeClient implements ClientModInitializer {
         String value = properties.getProperty(key);
         if (value != null) {
             return Boolean.parseBoolean(value);
+        }
+        return def;
+    }
+
+    private static Level getLogLevelProperty(Properties properties, String key, Level def) {
+        String value = properties.getProperty(key);
+        if (value != null) {
+            Level logLevel = Level.getLevel(value);
+            if (logLevel != null) {
+                return logLevel;
+            } else {
+                DeveloperMode.LOGGER.error("Invalid property value for " + key + " in client config. Expected any of [" + StringUtils.join(Level.values(), ", ") + "].");
+            }
         }
         return def;
     }
@@ -83,5 +99,6 @@ public class DeveloperModeClient implements ClientModInitializer {
         shareOptionsEnabled = getBooleanProperty(properties, "shareOptions.enabled", false);
         rememberNewWorldSettingsEnabled = getBooleanProperty(properties, "rememberNewWorldSettings.enabled", false);
         splashFadeTime = getIntProperty(properties, "splash.fade.time", 1000);
+        realmsErrorLogLevel = getLogLevelProperty(properties, "realms.errorLogLevel", Level.DEBUG);
     }
 }

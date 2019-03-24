@@ -45,6 +45,9 @@ rememberNewWorldSettings.enabled=true
 
 # Settings for the fade from splash screen to main menu
 splash.fade.time=0
+
+# Sets the log level for realms error messages
+realms.errorLogLevel=DEBUG
 ```
 
 ### `./newWorldSettings.json`

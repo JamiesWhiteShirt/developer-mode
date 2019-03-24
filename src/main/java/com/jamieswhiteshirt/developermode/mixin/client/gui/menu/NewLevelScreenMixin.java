@@ -28,7 +28,7 @@ import java.io.*;
 public abstract class NewLevelScreenMixin extends Screen implements NewLevelScreenExtension {
     private File developermode_propertiesFile;
     private GameRules developermode_gameRules = new GameRules();
-    private ButtonWidget gameRulesButton;
+    private ButtonWidget developermode_gameRulesButton;
 
     @Shadow private String seed;
     @Shadow private int generatorType;
@@ -74,7 +74,7 @@ public abstract class NewLevelScreenMixin extends Screen implements NewLevelScre
         )
     )
     private void onInitialized(CallbackInfo ci) {
-        gameRulesButton = this.addButton(new ButtonWidget(2 * this.screenWidth / 3 + 5, 187, 80, 20, I18n.translate("developermode.gameRules"), (buttonWidget_1) -> {
+        developermode_gameRulesButton = this.addButton(new ButtonWidget(2 * this.screenWidth / 3 + 5, 187, 80, 20, I18n.translate("developermode.gameRules"), (buttonWidget_1) -> {
             client.openScreen(new GameRulesScreen(developermode_gameRules, (NewLevelScreen) (Object) this));
         }));
     }
@@ -84,7 +84,7 @@ public abstract class NewLevelScreenMixin extends Screen implements NewLevelScre
         at = @At("TAIL")
     )
     private void method_2710(boolean showMoreOptions, CallbackInfo ci) {
-        gameRulesButton.visible = showMoreOptions && DeveloperModeClient.gameRulesGuiEnabled;
+        developermode_gameRulesButton.visible = showMoreOptions && DeveloperModeClient.gameRulesGuiEnabled;
     }
 
     @Override

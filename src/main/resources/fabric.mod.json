@@ -2,7 +2,7 @@
   "id": "developer-mode",
   "name": "Developer Mode",
   "description": "A few things to make development easier.",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "side": "universal",
   "initializers": [
     "com.jamieswhiteshirt.developermode.client.DeveloperModeClient"

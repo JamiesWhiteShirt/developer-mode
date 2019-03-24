@@ -1,3 +1,8 @@
+# 1.0.9
+
+- Added option to set Realms error logging level: DEBUG (silent) by default.
+- Added GUI for New World game rules: Enabled by default.
+
 # 1.0.8
 
 - Updated to 19w12b.

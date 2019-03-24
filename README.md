@@ -9,6 +9,8 @@ A few things to make development easier with [Fabric](https://fabricmc.net/).
 - Configurable loading screen fade time: Instant by default.
 - Remember New World settings: Enabled by default.
 - Global client options: Enabled for most options by default.
+- Realms error logging level: DEBUG (silent) by default.
+- Game rules for New World settings.
 - `--world $WORLDNAME` client program argument to instantly create and/or open a world on launch.
 
 ## Usage

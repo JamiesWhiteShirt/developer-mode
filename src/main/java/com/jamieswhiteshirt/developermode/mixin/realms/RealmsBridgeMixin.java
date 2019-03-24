@@ -11,13 +11,14 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class RealmsBridgeMixin {
     @Redirect(
         method = {
-            "getNotificationScreen(Lnet/minecraft/client/gui/Screen;)Lnet/minecraft/client/gui/menu/RealmsScreen;",
-            "switchToRealms(Lnet/minecraft/client/gui/Screen;)V"
+            "getNotificationScreen",
+            "switchToRealms"
         },
         at = @At(
             value = "INVOKE",
             target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;)V"
-        )
+        ),
+        remap = false
     )
     void redirectError1(Logger logger, String message) {
         logger.log(DeveloperModeClient.realmsErrorLogLevel, message);
@@ -25,13 +26,14 @@ public class RealmsBridgeMixin {
 
     @Redirect(
         method = {
-            "getNotificationScreen(Lnet/minecraft/client/gui/Screen;)Lnet/minecraft/client/gui/menu/RealmsScreen;",
-            "switchToRealms(Lnet/minecraft/client/gui/Screen;)V"
+            "getNotificationScreen",
+            "switchToRealms"
         },
         at = @At(
             value = "INVOKE",
             target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Throwable;)V"
-        )
+        ),
+        remap = false
     )
     void redirectError2(Logger logger, String message, Throwable t) {
         logger.log(DeveloperModeClient.realmsErrorLogLevel, message, t);

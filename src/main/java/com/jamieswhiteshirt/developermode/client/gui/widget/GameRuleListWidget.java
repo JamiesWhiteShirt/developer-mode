@@ -14,6 +14,7 @@ import net.minecraft.world.GameRules;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Entry> {
@@ -61,8 +62,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
             super(name, key, value);
             this.editButton = new ButtonWidget(0, 0, 75, 20, I18n.translate("edit"), buttonWidget -> this.value.set(String.valueOf(!value.getBoolean()), null));
             this.resetButton = new ButtonWidget(0, 0, 50, 20, I18n.translate("controls.reset"), buttonWidget -> {
-                String defaultValue = this.key.createValue().getString();
-                this.value.set(defaultValue, null);
+                this.value.set(this.defaultValue, null);
             });
         }
 
@@ -71,6 +71,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
             client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
             resetButton.x = x + 190;
             resetButton.y = y;
+            resetButton.active = !Objects.equals(value.getString(), defaultValue);
             resetButton.render(parentX, parentY, delta);
             editButton.x = x + 105;
             editButton.y = y;
@@ -96,9 +97,8 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
             this.textField.setText(value.getString());
             this.textField.setChangedListener(newValue -> value.set(newValue, null));
             this.resetButton = new ButtonWidget(0, 0, 50, 20, I18n.translate("controls.reset"), buttonWidget_1 -> {
-                String defaultValue = this.key.createValue().getString();
-                this.textField.setText(defaultValue);
-                this.value.set(defaultValue, null);
+                this.textField.setText(this.defaultValue);
+                this.value.set(this.defaultValue, null);
             });
         }
 
@@ -107,6 +107,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
             client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
             resetButton.x = x + 190;
             resetButton.y = y;
+            resetButton.active = !Objects.equals(value.getString(), defaultValue);
             resetButton.render(parentX, parentY, delta);
             textField.setX(x + 106);
             ((TextFieldWidgetExtension) textField).developermode_setY(y + 1);
@@ -125,11 +126,13 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
         protected final String name;
         protected final GameRules.Key key;
         protected final GameRules.Value value;
+        protected final String defaultValue;
 
         private Entry(String name, GameRules.Key key, GameRules.Value value) {
             this.name = name;
             this.key = key;
             this.value = value;
+            this.defaultValue = key.createValue().getString();
         }
     }
 }

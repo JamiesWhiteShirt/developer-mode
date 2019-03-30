@@ -20,8 +20,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:19w12b"
-    mappings "net.fabricmc:yarn:19w12b.1"
+    minecraft "com.mojang:minecraft:19w13b"
+    mappings "net.fabricmc:yarn:19w13b.2"
     modCompile "net.fabricmc:fabric-loader:0.3.7.109"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"

@@ -31,8 +31,7 @@ public abstract class SplashScreenMixin extends Overlay {
         constant = @Constant(
             floatValue = 1000.F
         ),
-        method = "render(IIF)V",
-        remap = false
+        method = "render(IIF)V"
     )
     private float modifyFadeTime1(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 2.0F;
@@ -42,8 +41,7 @@ public abstract class SplashScreenMixin extends Overlay {
         constant = @Constant(
             floatValue = 500.F
         ),
-        method = "render(IIF)V",
-        remap = false
+        method = "render(IIF)V"
     )
     private float modifyFadeTime2(float originalValue) {
         return DeveloperModeClient.splashFadeTime / 4.0F;
@@ -52,12 +50,10 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V",
-            remap = true
+            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V"
         ),
         method = "render(IIF)V",
-        index = 4,
-        remap = false
+        index = 4
     )
     private int backgroundColor(int x, int y, int width, int height, int color) {
         // In case someone else injects drawRect calls in this method
@@ -72,7 +68,7 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V",
+            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V",
             ordinal = 0
         ),
         method = "renderProgressBar(IIIIFF)V",
@@ -85,7 +81,7 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V",
+            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V",
             ordinal = 1
         ),
         method = "renderProgressBar(IIIIFF)V",
@@ -98,7 +94,7 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;drawRect(IIIII)V",
+            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V",
             ordinal = 2
         ),
         method = "renderProgressBar(IIIIFF)V",

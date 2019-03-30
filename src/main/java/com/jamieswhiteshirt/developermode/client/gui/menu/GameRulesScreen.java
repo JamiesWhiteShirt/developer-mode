@@ -1,9 +1,9 @@
 package com.jamieswhiteshirt.developermode.client.gui.menu;
 
-import com.jamieswhiteshirt.developermode.client.gui.NestedInputListener;
 import com.jamieswhiteshirt.developermode.client.gui.widget.GameRuleListWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.ParentElement;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.menu.NewLevelScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -12,7 +12,7 @@ import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.world.GameRules;
 
 @Environment(EnvType.CLIENT)
-public class GameRulesScreen extends Screen implements NestedInputListener {
+public class GameRulesScreen extends Screen implements ParentElement {
     private final GameRules gameRules;
     private final NewLevelScreen parent;
     private GameRuleListWidget gameRuleListWidget;
@@ -24,17 +24,17 @@ public class GameRulesScreen extends Screen implements NestedInputListener {
     }
 
     @Override
-    protected void onInitialized() {
-        gameRuleListWidget = new GameRuleListWidget(gameRules, this, client);
-        listeners.add(gameRuleListWidget);
-        addButton(new ButtonWidget(screenWidth / 2 - 155 + 160, screenHeight - 29, 150, 20, I18n.translate("gui.done"), (buttonWidget_1) -> client.openScreen(parent)));
+    protected void init() {
+        gameRuleListWidget = new GameRuleListWidget(gameRules, this, minecraft);
+        children.add(gameRuleListWidget);
+        addButton(new ButtonWidget(width / 2 - 155 + 160, height - 29, 150, 20, I18n.translate("gui.done"), button -> minecraft.openScreen(parent)));
     }
 
     @Override
     public void render(int x, int y, float delta) {
-        drawBackground();
+        renderBackground();
         gameRuleListWidget.render(x, y, delta);
-        drawStringCentered(fontRenderer, title.getFormattedText(), screenWidth / 2, 8, 16777215);
+        drawCenteredString(font, title.getFormattedText(), width / 2, 8, 16777215);
         super.render(x, y, delta);
     }
 }

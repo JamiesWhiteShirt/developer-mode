@@ -20,10 +20,10 @@ public abstract class MainMixin {
         at = @At(
             value = "INVOKE",
             target = "Ljoptsimple/OptionParser;accepts(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;",
-            ordinal = 0
+            ordinal = 0,
+            remap = false
         ),
-        method = "main([Ljava/lang/String;)V",
-        remap = false
+        method = "main([Ljava/lang/String;)V"
     )
     private static OptionParser addWorldOption(OptionParser original) {
         worldOption = original.accepts("world").withRequiredArg();
@@ -34,10 +34,10 @@ public abstract class MainMixin {
         at = @At(
             value = "INVOKE",
             target = "Ljoptsimple/OptionSet;valuesOf(Ljoptsimple/OptionSpec;)Ljava/util/List;",
-            ordinal = 0
+            ordinal = 0,
+            remap = false
         ),
-        method = "main([Ljava/lang/String;)V",
-        remap = false
+        method = "main([Ljava/lang/String;)V"
     )
     private static OptionSet getAutoWorldValue(OptionSet optionSet) {
         autoWorld = optionSet.valueOf(worldOption);
@@ -47,12 +47,10 @@ public abstract class MainMixin {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/MinecraftClient;<init>(Lnet/minecraft/client/RunArgs;)V",
-            remap = true
+            target = "Lnet/minecraft/client/MinecraftClient;<init>(Lnet/minecraft/client/RunArgs;)V"
         ),
         method = "main([Ljava/lang/String;)V",
-        index = 0,
-        remap = false
+        index = 0
     )
     private static RunArgs addAutoWorldRunArg(RunArgs runArgs) {
         RunArgsExtension extension = (RunArgsExtension) runArgs;

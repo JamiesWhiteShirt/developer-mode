@@ -45,9 +45,9 @@ public abstract class NewLevelScreenMixin extends Screen implements NewLevelScre
 
     @Inject(
         at = @At("RETURN"),
-        method = "onClosed()V"
+        method = "removed()V"
     )
-    private void onClosed(CallbackInfo ci) {
+    private void removed(CallbackInfo ci) {
         if (developermode_propertiesFile != null) {
             developermode_writeLevelPropertiesFile();
         }
@@ -67,15 +67,15 @@ public abstract class NewLevelScreenMixin extends Screen implements NewLevelScre
     }
 
     @Inject(
-        method = "onInitialized()V",
+        method = "init()V",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/gui/menu/NewLevelScreen;method_2710(Z)V"
         )
     )
-    private void onInitialized(CallbackInfo ci) {
-        developermode_gameRulesButton = this.addButton(new ButtonWidget(2 * this.screenWidth / 3 + 5, 187, 80, 20, I18n.translate("developermode.gameRules"), (buttonWidget_1) -> {
-            client.openScreen(new GameRulesScreen(developermode_gameRules, (NewLevelScreen) (Object) this));
+    private void init(CallbackInfo ci) {
+        developermode_gameRulesButton = this.addButton(new ButtonWidget(2 * this.width / 3 + 5, 187, 80, 20, I18n.translate("developermode.gameRules"), (buttonWidget_1) -> {
+            minecraft.openScreen(new GameRulesScreen(developermode_gameRules, (NewLevelScreen) (Object) this));
         }));
     }
 

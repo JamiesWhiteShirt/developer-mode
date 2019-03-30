@@ -33,7 +33,7 @@ public abstract class MinecraftClientMixin {
         ),
         method = "init()V"
     )
-    private void method_18084(MinecraftClient client, Screen original) {
+    private void init(MinecraftClient client, Screen original) {
         if (developermode_autoWorld != null) {
             LevelSelectScreen levelSelectScreen = new LevelSelectScreen(original);
             client.openScreen(levelSelectScreen);

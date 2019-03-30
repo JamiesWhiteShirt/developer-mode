@@ -1,32 +1,28 @@
 package com.jamieswhiteshirt.developermode.client.gui.widget;
 
-import com.jamieswhiteshirt.developermode.client.gui.NestedInputListener;
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.InputListener;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.EntryListWidget;
+import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.world.GameRules;
 
-import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class GameRuleListWidget extends EntryListWidget<GameRuleListWidget.Entry> implements NestedInputListener {
+public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Entry> {
     private final GameRules gameRules;
-    private final MinecraftClient client;
     private int nameMaxWidth;
 
-    public GameRuleListWidget(GameRules gameRules, Screen screen, MinecraftClient minecraftClient_1) {
-        super(minecraftClient_1, screen.screenWidth + 45, screen.screenHeight, 24, screen.screenHeight - 32, 20);
+    public GameRuleListWidget(GameRules gameRules, Screen screen, MinecraftClient minecraft) {
+        super(minecraft, screen.width + 45, screen.height, 24, screen.height - 32, 20);
         this.gameRules = gameRules;
-        this.client = minecraftClient_1;
 
         for (Map.Entry<String, GameRules.Key> entry : GameRules.getKeys().entrySet()) {
             String name = entry.getKey();
@@ -34,12 +30,12 @@ public class GameRuleListWidget extends EntryListWidget<GameRuleListWidget.Entry
             GameRules.Value value = gameRules.get(name);
 
             if (value.getType() == GameRules.Type.BOOLEAN) {
-                addEntry(new BooleanEntry(name, key, value));
+                addItem(new BooleanEntry(name, key, value));
             } else {
-                addEntry(new TextEntry(name, key, value));
+                addItem(new TextEntry(name, key, value));
             }
 
-            int nameWidth = minecraftClient_1.textRenderer.getStringWidth(name);
+            int nameWidth = minecraft.textRenderer.getStringWidth(name);
             if (nameWidth > nameMaxWidth) {
                 nameMaxWidth = nameWidth;
             }
@@ -52,12 +48,12 @@ public class GameRuleListWidget extends EntryListWidget<GameRuleListWidget.Entry
     }
 
     @Override
-    public int getEntryWidth() {
-        return super.getEntryWidth() + 32;
+    public int getItemWidth() {
+        return super.getItemWidth() + 32;
     }
 
     @Environment(EnvType.CLIENT)
-    public class BooleanEntry extends Entry implements NestedInputListener {
+    public class BooleanEntry extends Entry {
         private final ButtonWidget editButton;
         private final ButtonWidget resetButton;
 
@@ -70,28 +66,27 @@ public class GameRuleListWidget extends EntryListWidget<GameRuleListWidget.Entry
             });
         }
 
-        public void draw(int int_1, int int_2, int int_3, int int_4, boolean boolean_1, float float_1) {
-            int y = getY();
-            int x = getX();
-            client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + int_2 / 2 - 9 / 2), 0xFFFFFF);
+        @Override
+        public void render(int i, int y, int x, int width, int height, int parentX, int parentY, boolean mouseHover, float delta) {
+            client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
             resetButton.x = x + 190;
             resetButton.y = y;
-            resetButton.render(int_3, int_4, float_1);
+            resetButton.render(parentX, parentY, delta);
             editButton.x = x + 105;
             editButton.y = y;
             editButton.setMessage(value.getString());
 
-            editButton.render(int_3, int_4, float_1);
+            editButton.render(parentX, parentY, delta);
         }
 
         @Override
-        public List<? extends InputListener> getInputListeners() {
-            return Arrays.asList(editButton, resetButton);
+        public List<? extends Element> children() {
+            return ImmutableList.of(editButton, resetButton);
         }
     }
 
     @Environment(EnvType.CLIENT)
-    public class TextEntry extends Entry implements NestedInputListener {
+    public class TextEntry extends Entry {
         private final TextFieldWidget textField;
         private final ButtonWidget resetButton;
 
@@ -107,59 +102,34 @@ public class GameRuleListWidget extends EntryListWidget<GameRuleListWidget.Entry
             });
         }
 
-        public void draw(int int_1, int int_2, int int_3, int int_4, boolean boolean_1, float float_1) {
-            int y = getY();
-            int x = getX();
-            client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + int_2 / 2 - 9 / 2), 0xFFFFFF);
+        @Override
+        public void render(int i, int y, int x, int width, int height, int parentX, int parentY, boolean mouseHover, float delta) {
+            client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
             resetButton.x = x + 190;
             resetButton.y = y;
-            resetButton.render(int_3, int_4, float_1);
+            resetButton.render(parentX, parentY, delta);
             textField.setX(x + 106);
             ((TextFieldWidgetExtension) textField).developermode_setY(y + 1);
 
-            textField.render(int_3, int_4, float_1);
+            textField.render(parentX, parentY, delta);
         }
 
         @Override
-        public List<? extends InputListener> getInputListeners() {
-            return Arrays.asList(textField, resetButton);
+        public List<? extends Element> children() {
+            return ImmutableList.of(textField, resetButton);
         }
     }
 
     @Environment(EnvType.CLIENT)
-    public abstract static class Entry extends EntryListWidget.Entry<Entry> implements NestedInputListener {
+    public abstract static class Entry extends ElementListWidget.ElementItem<Entry> {
         protected final String name;
         protected final GameRules.Key key;
         protected final GameRules.Value value;
-        private boolean active = true;
-        @Nullable
-        private InputListener focused;
 
         private Entry(String name, GameRules.Key key, GameRules.Value value) {
             this.name = name;
             this.key = key;
             this.value = value;
-        }
-
-        @Override
-        public boolean isActive() {
-            return active;
-        }
-
-        @Override
-        public void setActive(boolean active) {
-            this.active = active;
-        }
-
-        @Override
-        public void setFocused(@Nullable InputListener focused) {
-            this.focused = focused;
-        }
-
-        @Nullable
-        @Override
-        public InputListener getFocused() {
-            return focused;
         }
     }
 }

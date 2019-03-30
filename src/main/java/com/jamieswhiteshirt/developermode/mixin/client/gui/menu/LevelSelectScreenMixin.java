@@ -9,7 +9,6 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.menu.LevelSelectScreen;
 import net.minecraft.client.gui.menu.NewLevelScreen;
 import net.minecraft.client.gui.widget.LevelListWidget;
-import net.minecraft.client.gui.widget.LevelSelectEntryWidget;
 import net.minecraft.text.TextComponent;
 import net.minecraft.world.level.storage.LevelStorage;
 import net.minecraft.world.level.storage.LevelStorageException;
@@ -48,21 +47,21 @@ public abstract class LevelSelectScreenMixin extends Screen implements LevelSele
     @Override
     public void developermode_openOrCreateLevel(String name) {
         try {
-            LevelStorage levelStorage = client.getLevelStorage();
+            LevelStorage levelStorage = minecraft.getLevelStorage();
             Optional<LevelSummary> optLevel = levelStorage.getLevelList().stream()
                 .filter(level -> level.getName().equals(name))
                 .findFirst();
             if (optLevel.isPresent()) {
-                new LevelSelectEntryWidget(levelList, optLevel.get(), levelStorage).loadLevel();
+                ((LevelListWidget) (Object) this).new LevelItem(levelList, optLevel.get(), levelStorage).method_20164();
             } else {
                 NewLevelScreen newLevelScreen = new NewLevelScreen(this);
                 NewLevelScreenExtension extension = (NewLevelScreenExtension) newLevelScreen;
                 if (DeveloperModeClient.rememberNewWorldSettingsEnabled) {
-                    File file = new File(client.runDirectory, "newWorldSettings.json");
+                    File file = new File(minecraft.runDirectory, "newWorldSettings.json");
                     extension.developermode_setLevelPropertiesFile(file);
                 }
                 extension.developermode_setLevelName(name);
-                client.openScreen(newLevelScreen);
+                minecraft.openScreen(newLevelScreen);
             }
         } catch (LevelStorageException e) {
             DeveloperMode.LOGGER.error("Failed to auto load world", e);

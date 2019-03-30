@@ -1,3 +1,8 @@
+# 1.0.10
+
+- Updated to 19w13b.
+- Changed game option reset button to only be active when the value is changed.
+
 # 1.0.9
 
 - Added option to set Realms error logging level: DEBUG (silent) by default.

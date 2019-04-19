@@ -1,6 +1,7 @@
-package com.jamieswhiteshirt.developermode.client.gui.widget;
+package com.jamieswhiteshirt.developermode.client.gui.menu;
 
 import com.google.common.collect.ImmutableList;
+import com.jamieswhiteshirt.developermode.client.gui.widget.TextFieldWidgetExtension;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -93,7 +94,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
 
         private TextEntry(String name, GameRules.Key key, GameRules.Value value) {
             super(name, key, value);
-            this.textField = new TextFieldWidget(client.textRenderer, 1, 1, 73, 18);
+            this.textField = new TextFieldWidget(client.textRenderer, 1, 1, 73, 18, I18n.translate("developermode.gameRules.enterValue"));
             this.textField.setText(value.getString());
             this.textField.setChangedListener(newValue -> value.set(newValue, null));
             this.resetButton = new ButtonWidget(0, 0, 50, 20, I18n.translate("controls.reset"), buttonWidget_1 -> {
@@ -110,7 +111,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
             resetButton.active = !Objects.equals(value.getString(), defaultValue);
             resetButton.render(parentX, parentY, delta);
             textField.setX(x + 106);
-            ((TextFieldWidgetExtension) textField).developermode_setY(y + 1);
+            textField.y = y + 1;
 
             textField.render(parentX, parentY, delta);
         }

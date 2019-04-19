@@ -2,7 +2,7 @@
   "required": true,
   "package": "com.jamieswhiteshirt.developermode.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
+  "client": [
     "client.gui.SplashScreenMixin",
     "client.gui.MainMenuScreenMixin",
     "client.util.WindowMixin",
@@ -12,8 +12,7 @@
     "client.RunArgsMixin",
     "client.main.MainMixin",
     "client.MinecraftClientMixin",
-    "realms.RealmsBridgeMixin",
-    "client.gui.widget.TextFieldWidgetMixin"
+    "realms.RealmsBridgeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

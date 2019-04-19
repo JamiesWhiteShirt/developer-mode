@@ -1,6 +1,5 @@
 package com.jamieswhiteshirt.developermode.client.gui.menu;
 
-import com.jamieswhiteshirt.developermode.client.gui.widget.GameRuleListWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.ParentElement;

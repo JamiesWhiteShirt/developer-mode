@@ -10,10 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(RealmsBridge.class)
 public class RealmsBridgeMixin {
     @Redirect(
-        method = {
-            "getNotificationScreen",
-            "switchToRealms"
-        },
+        method = "tryLoadRealms()Ljava/util/Optional;",
         at = @At(
             value = "INVOKE",
             target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;)V",
@@ -25,10 +22,7 @@ public class RealmsBridgeMixin {
     }
 
     @Redirect(
-        method = {
-            "getNotificationScreen",
-            "switchToRealms"
-        },
+        method = "tryLoadRealms()Ljava/util/Optional;",
         at = @At(
             value = "INVOKE",
             target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Throwable;)V",

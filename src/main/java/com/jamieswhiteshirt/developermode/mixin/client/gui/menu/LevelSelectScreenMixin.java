@@ -8,7 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.menu.LevelSelectScreen;
 import net.minecraft.client.gui.menu.NewLevelScreen;
-import net.minecraft.client.gui.widget.LevelListWidget;
+import net.minecraft.client.gui.menu.LevelListWidget;
 import net.minecraft.text.TextComponent;
 import net.minecraft.world.level.storage.LevelStorage;
 import net.minecraft.world.level.storage.LevelStorageException;
@@ -52,7 +52,7 @@ public abstract class LevelSelectScreenMixin extends Screen implements LevelSele
                 .filter(level -> level.getName().equals(name))
                 .findFirst();
             if (optLevel.isPresent()) {
-                ((LevelListWidget) (Object) this).new LevelItem(levelList, optLevel.get(), levelStorage).method_20164();
+                ((LevelListWidget) (Object) this).new LevelItem(levelList, optLevel.get(), levelStorage).play();
             } else {
                 NewLevelScreen newLevelScreen = new NewLevelScreen(this);
                 NewLevelScreenExtension extension = (NewLevelScreenExtension) newLevelScreen;

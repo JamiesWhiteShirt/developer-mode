@@ -1,17 +1,17 @@
-package com.jamieswhiteshirt.developermode.mixin.client.gui.menu;
+package com.jamieswhiteshirt.developermode.mixin.client.gui.screen.world;
 
 import com.jamieswhiteshirt.developermode.DeveloperMode;
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
 import com.jamieswhiteshirt.developermode.client.NewLevelProperties;
-import com.jamieswhiteshirt.developermode.client.gui.menu.GameRulesScreen;
-import com.jamieswhiteshirt.developermode.client.gui.menu.NewLevelScreenExtension;
+import com.jamieswhiteshirt.developermode.client.gui.screen.world.GameRulesScreen;
+import com.jamieswhiteshirt.developermode.client.gui.screen.world.CreateWorldScreenExtension;
 import com.jamieswhiteshirt.developermode.common.world.level.LevelInfoExtension;
-import net.minecraft.client.gui.Screen;
-import net.minecraft.client.gui.menu.NewLevelScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.text.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.level.LevelGeneratorType;
 import net.minecraft.world.level.LevelInfo;
@@ -24,8 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.*;
 
-@Mixin(NewLevelScreen.class)
-public abstract class NewLevelScreenMixin extends Screen implements NewLevelScreenExtension {
+@Mixin(CreateWorldScreen.class)
+public abstract class CreateWorldScreenMixin extends Screen implements CreateWorldScreenExtension {
     private File developermode_propertiesFile;
     private GameRules developermode_gameRules = new GameRules();
     private ButtonWidget developermode_gameRulesButton;
@@ -39,7 +39,7 @@ public abstract class NewLevelScreenMixin extends Screen implements NewLevelScre
     @Shadow private boolean enableBonusItems;
     @Shadow private String levelName;
 
-    protected NewLevelScreenMixin(TextComponent textComponent_1) {
+    protected CreateWorldScreenMixin(Component textComponent_1) {
         super(textComponent_1);
     }
 
@@ -70,12 +70,12 @@ public abstract class NewLevelScreenMixin extends Screen implements NewLevelScre
         method = "init()V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/menu/NewLevelScreen;method_2710(Z)V"
+            target = "Lnet/minecraft/client/gui/screen/world/CreateWorldScreen;method_2710(Z)V"
         )
     )
     private void init(CallbackInfo ci) {
         developermode_gameRulesButton = this.addButton(new ButtonWidget(2 * this.width / 3 + 5, 187, 80, 20, I18n.translate("developermode.gameRules"), (buttonWidget_1) -> {
-            minecraft.openScreen(new GameRulesScreen(developermode_gameRules, (NewLevelScreen) (Object) this));
+            minecraft.openScreen(new GameRulesScreen(developermode_gameRules, (CreateWorldScreen) (Object) this));
         }));
     }
 

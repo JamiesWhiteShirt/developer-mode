@@ -1,23 +1,23 @@
-package com.jamieswhiteshirt.developermode.client.gui.menu;
+package com.jamieswhiteshirt.developermode.client.gui.screen.world;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.ParentElement;
-import net.minecraft.client.gui.Screen;
-import net.minecraft.client.gui.menu.NewLevelScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.text.TranslatableTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.GameRules;
 
 @Environment(EnvType.CLIENT)
 public class GameRulesScreen extends Screen implements ParentElement {
     private final GameRules gameRules;
-    private final NewLevelScreen parent;
+    private final CreateWorldScreen parent;
     private GameRuleListWidget gameRuleListWidget;
 
-    public GameRulesScreen(GameRules gameRules, NewLevelScreen parent) {
-        super(new TranslatableTextComponent("developermode.gameRules"));
+    public GameRulesScreen(GameRules gameRules, CreateWorldScreen parent) {
+        super(new TranslatableComponent("developermode.gameRules"));
         this.gameRules = gameRules;
         this.parent = parent;
     }

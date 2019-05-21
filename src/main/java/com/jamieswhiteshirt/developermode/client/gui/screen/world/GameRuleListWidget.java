@@ -1,12 +1,11 @@
-package com.jamieswhiteshirt.developermode.client.gui.menu;
+package com.jamieswhiteshirt.developermode.client.gui.screen.world;
 
 import com.google.common.collect.ImmutableList;
-import com.jamieswhiteshirt.developermode.client.gui.widget.TextFieldWidgetExtension;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
-import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -31,10 +30,10 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
             GameRules.Key key = entry.getValue();
             GameRules.Value value = gameRules.get(name);
 
-            if (value.getType() == GameRules.Type.BOOLEAN) {
-                addItem(new BooleanEntry(name, key, value));
+            if (value.getType() == GameRules.Type.BOOLEAN_VALUE) {
+                addEntry(new BooleanEntry(name, key, value));
             } else {
-                addItem(new TextEntry(name, key, value));
+                addEntry(new TextEntry(name, key, value));
             }
 
             int nameWidth = minecraft.textRenderer.getStringWidth(name);
@@ -50,8 +49,8 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
     }
 
     @Override
-    public int getItemWidth() {
-        return super.getItemWidth() + 32;
+    public int getRowWidth() {
+        return super.getRowWidth() + 32;
     }
 
     @Environment(EnvType.CLIENT)
@@ -62,14 +61,12 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
         private BooleanEntry(String name, GameRules.Key key, GameRules.Value value) {
             super(name, key, value);
             this.editButton = new ButtonWidget(0, 0, 75, 20, I18n.translate("edit"), buttonWidget -> this.value.set(String.valueOf(!value.getBoolean()), null));
-            this.resetButton = new ButtonWidget(0, 0, 50, 20, I18n.translate("controls.reset"), buttonWidget -> {
-                this.value.set(this.defaultValue, null);
-            });
+            this.resetButton = new ButtonWidget(0, 0, 50, 20, I18n.translate("controls.reset"), buttonWidget -> this.value.set(this.defaultValue, null));
         }
 
         @Override
         public void render(int i, int y, int x, int width, int height, int parentX, int parentY, boolean mouseHover, float delta) {
-            client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
+            minecraft.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
             resetButton.x = x + 190;
             resetButton.y = y;
             resetButton.active = !Objects.equals(value.getString(), defaultValue);
@@ -94,7 +91,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
 
         private TextEntry(String name, GameRules.Key key, GameRules.Value value) {
             super(name, key, value);
-            this.textField = new TextFieldWidget(client.textRenderer, 1, 1, 73, 18, I18n.translate("developermode.gameRules.enterValue"));
+            this.textField = new TextFieldWidget(minecraft.textRenderer, 1, 1, 73, 18, I18n.translate("developermode.gameRules.enterValue"));
             this.textField.setText(value.getString());
             this.textField.setChangedListener(newValue -> value.set(newValue, null));
             this.resetButton = new ButtonWidget(0, 0, 50, 20, I18n.translate("controls.reset"), buttonWidget_1 -> {
@@ -105,7 +102,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
 
         @Override
         public void render(int i, int y, int x, int width, int height, int parentX, int parentY, boolean mouseHover, float delta) {
-            client.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
+            minecraft.textRenderer.draw(name, x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
             resetButton.x = x + 190;
             resetButton.y = y;
             resetButton.active = !Objects.equals(value.getString(), defaultValue);
@@ -123,7 +120,7 @@ public class GameRuleListWidget extends ElementListWidget<GameRuleListWidget.Ent
     }
 
     @Environment(EnvType.CLIENT)
-    public abstract static class Entry extends ElementListWidget.ElementItem<Entry> {
+    public abstract static class Entry extends ElementListWidget.Entry<Entry> {
         protected final String name;
         protected final GameRules.Key key;
         protected final GameRules.Value value;

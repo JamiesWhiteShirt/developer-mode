@@ -1,7 +1,7 @@
-package com.jamieswhiteshirt.developermode.mixin.client.gui;
+package com.jamieswhiteshirt.developermode.mixin.client.gui.screen;
 
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
-import net.minecraft.client.gui.MainMenuScreen;
+import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MainMenuScreen.class)
-public abstract class MainMenuScreenMixin {
+@Mixin(TitleScreen.class)
+public abstract class TitleScreenMixin {
     @Shadow private boolean doBackgroundFade;
 
     @Inject(

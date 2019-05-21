@@ -1,9 +1,9 @@
-package com.jamieswhiteshirt.developermode.mixin.client.gui;
+package com.jamieswhiteshirt.developermode.mixin.client.gui.screen;
 
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Overlay;
-import net.minecraft.client.gui.SplashScreen;
+import net.minecraft.client.gui.screen.Overlay;
+import net.minecraft.client.gui.screen.SplashScreen;
 import net.minecraft.resource.ResourceReloadMonitor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -50,7 +50,7 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V"
+            target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V"
         ),
         method = "render(IIF)V",
         index = 4
@@ -68,7 +68,7 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V",
+            target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V",
             ordinal = 0
         ),
         method = "renderProgressBar(IIIIFF)V",
@@ -81,7 +81,7 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V",
+            target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V",
             ordinal = 1
         ),
         method = "renderProgressBar(IIIIFF)V",
@@ -94,7 +94,7 @@ public abstract class SplashScreenMixin extends Overlay {
     @ModifyArg(
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/SplashScreen;fill(IIIII)V",
+            target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V",
             ordinal = 2
         ),
         method = "renderProgressBar(IIIIFF)V",

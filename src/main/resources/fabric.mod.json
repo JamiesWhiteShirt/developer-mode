@@ -4,6 +4,9 @@
   "name": "Developer Mode",
   "description": "A few things to make development easier.",
   "version": "1.0.11",
+  "authors": [
+    "JamiesWhiteShirt"
+  ],
   "icon": "assets/developer-mode/icon.png",
   "contact": {
     "issues": "http://github.com/JamiesWhiteShirt/developer-mode/issues",

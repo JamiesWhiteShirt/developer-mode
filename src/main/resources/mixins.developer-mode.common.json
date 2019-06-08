@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "world.level.LevelInfoMixin",
-    "world.level.LevelPropertiesMixin"
+    "world.level.LevelPropertiesMixin",
+    "world.GameRules$IntRuleMixin"
   ],
   "injectors": {
     "defaultRequire": 1

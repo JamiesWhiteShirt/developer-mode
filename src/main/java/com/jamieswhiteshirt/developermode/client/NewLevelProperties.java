@@ -37,7 +37,7 @@ public class NewLevelProperties {
         map.put(ops.createString("allowCommands"), ops.createByte(allowCommands ? (byte) 1 : (byte) 0));
         map.put(ops.createString("bonusItems"), ops.createByte(bonusItems ? (byte) 1 : (byte) 0));
         map.put(ops.createString("gameType"), ops.createString(gameType));
-        map.put(ops.createString("gameRules"), Dynamic.convert(NbtOps.INSTANCE, ops, gameRules.serialize()));
+        map.put(ops.createString("gameRules"), Dynamic.convert(NbtOps.INSTANCE, ops, gameRules.toNbt()));
         return ops.createMap(map);
     }
 
@@ -56,7 +56,7 @@ public class NewLevelProperties {
         allowCommands = dynamic.getElement("allowCommands").flatMap(ops::getNumberValue).map(it -> it.byteValue() != 0).orElse(false);
         bonusItems = dynamic.getElement("bonusItems").flatMap(ops::getNumberValue).map(it -> it.byteValue() != 0).orElse(false);
         gameType = dynamic.getElement("gameType").flatMap(ops::getStringValue).orElse("");
-        gameRules.deserialize(dynamic.getElement("gameRules").map(it -> Dynamic.convert(ops, NbtOps.INSTANCE, it)).flatMap(it -> {
+        gameRules.fromNbt(dynamic.getElement("gameRules").map(it -> Dynamic.convert(ops, NbtOps.INSTANCE, it)).flatMap(it -> {
             if (it instanceof CompoundTag) {
                 return Optional.of((CompoundTag) it);
             } else {

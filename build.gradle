@@ -1,5 +1,5 @@
 plugins {
-    id "fabric-loom" version "0.2.0-SNAPSHOT"
+    id "fabric-loom" version "0.2.4-SNAPSHOT"
     id "maven"
     id "signing"
 }
@@ -20,9 +20,9 @@ minecraft {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.14 Pre-Release 5"
-    mappings "net.fabricmc:yarn:1.14 Pre-Release 5+build.2"
-    modCompile "net.fabricmc:fabric-loader:0.4.1+build.126"
+    minecraft "com.mojang:minecraft:1.14.3-pre2"
+    mappings "net.fabricmc:yarn:1.14.3-pre2+build.2"
+    modCompile "net.fabricmc:fabric-loader:0.4.8+build.154"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }

@@ -1,3 +1,7 @@
+# 1.0.12
+
+- Updated to 1.14.3-pre2.
+
 # 1.0.11
 
 - Updated to 1.14 Pre-Release 5.

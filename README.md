@@ -9,7 +9,6 @@ A few things to make development easier with [Fabric](https://fabricmc.net/).
 - Configurable loading screen fade time: Instant by default.
 - Remember New World settings: Enabled by default.
 - Global client options: Enabled for most options by default.
-- Realms error logging level: DEBUG (silent) by default.
 - Game rules for New World settings.
 - `--world $WORLDNAME` client program argument to instantly create and/or open a world on launch.
 
@@ -47,9 +46,6 @@ rememberNewWorldSettings.enabled=true
 
 # Settings for the fade from splash screen to main menu
 splash.fade.time=0
-
-# Sets the log level for realms error messages
-realms.errorLogLevel=DEBUG
 
 # GUI to edit game rules for New World
 gameRulesGui.enabled=true
@@ -110,4 +106,4 @@ If the world does not exist, a New World screen is opened.
 
 ## Developing Developer Mode
 
-To get started, refer to the [Fabric documentation](https://fabricmc.net/wiki/setup).
+To get started, refer to the [Fabric documentation](https://fabricmc.net/wiki/tutorial:setup).

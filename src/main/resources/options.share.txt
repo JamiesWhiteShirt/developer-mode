@@ -14,9 +14,6 @@ fancyGraphics:global
 ao:global
 biomeBlendRadius:global
 renderClouds:global
-resourcePacks:local
-incompatibleResourcePacks:local
-lastServer:local
 lang:global
 chatVisibility:global
 chatColors:global

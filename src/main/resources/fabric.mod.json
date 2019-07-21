@@ -14,7 +14,7 @@
       "com.jamieswhiteshirt.developermode.client.DeveloperModeClient"
     ]
   },
-  "requires": {
+  "depends": {
     "fabricloader": ">=0.4.1",
     "fabric-resource-loader-v0": "*"
   },

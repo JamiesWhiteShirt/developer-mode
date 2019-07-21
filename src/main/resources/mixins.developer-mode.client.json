@@ -11,8 +11,7 @@
     "client.options.GameOptionsMixin",
     "client.RunArgsMixin",
     "client.main.MainMixin",
-    "client.MinecraftClientMixin",
-    "realms.RealmsBridgeMixin"
+    "client.MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

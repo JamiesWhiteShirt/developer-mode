@@ -20,13 +20,10 @@ import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class GameRuleListWidget extends ElementListWidget {
-    private final GameRules gameRules;
     private int nameMaxWidth;
-    private CommandContext<ServerCommandSource> dummyCommandContext = new CommandContext<>(new ServerCommandSource(null, null, null, null, 0, null, null, null, null), null, null, null, null, null, null, null, null, false);
 
     public GameRuleListWidget(GameRules gameRules, Screen screen, MinecraftClient minecraft) {
         super(minecraft, screen.width + 45, screen.height, 24, screen.height - 32, 20);
-        this.gameRules = gameRules;
 
         GameRules.forEach(new GameRules.RuleConsumer() {
             @SuppressWarnings("unchecked")
@@ -65,10 +62,10 @@ public class GameRuleListWidget extends ElementListWidget {
 
         private BooleanEntry(GameRules.RuleKey<GameRules.BooleanRule> key, GameRules.RuleType<GameRules.BooleanRule> type, GameRules.BooleanRule rule) {
             super(key, type, rule);
-            this.defaultValue = type.newRule().getValue();
-            this.editButton = new ButtonWidget(0, 0, 75, 20, I18n.translate("edit"), buttonWidget -> this.rule.setValue(!rule.getValue(), null));
+            this.defaultValue = type.newRule().get();
+            this.editButton = new ButtonWidget(0, 0, 75, 20, I18n.translate("edit"), buttonWidget -> this.rule.set(!rule.get(), null));
             this.resetButton = new ButtonWidget(0, 0, 50, 20, I18n.translate("controls.reset"), buttonWidget -> {
-                this.rule.setValue(defaultValue, null);
+                this.rule.set(defaultValue, null);
             });
         }
 
@@ -77,11 +74,11 @@ public class GameRuleListWidget extends ElementListWidget {
             minecraft.textRenderer.draw(key.getName(), x + 90 - nameMaxWidth, (float)(y + height / 2 - 9 / 2), 0xFFFFFF);
             resetButton.x = x + 190;
             resetButton.y = y;
-            resetButton.active = rule.getValue() != defaultValue;
+            resetButton.active = rule.get() != defaultValue;
             resetButton.render(parentX, parentY, delta);
             editButton.x = x + 105;
             editButton.y = y;
-            editButton.setMessage(Boolean.toString(rule.getValue()));
+            editButton.setMessage(Boolean.toString(rule.get()));
 
             editButton.render(parentX, parentY, delta);
         }
@@ -100,9 +97,9 @@ public class GameRuleListWidget extends ElementListWidget {
 
         private IntEntry(GameRules.RuleKey<GameRules.IntRule> key, GameRules.RuleType<GameRules.IntRule> type, GameRules.IntRule rule) {
             super(key, type, rule);
-            this.defaultValue = type.newRule().getValue();
+            this.defaultValue = type.newRule().get();
             this.textField = new TextFieldWidget(minecraft.textRenderer, 1, 1, 73, 18, I18n.translate("developermode.gameRules.enterValue"));
-            this.textField.setText(Integer.toString(rule.getValue()));
+            this.textField.setText(Integer.toString(rule.get()));
             this.textField.setChangedListener(newValue -> {
                 try {
                     int intValue = Integer.parseInt(newValue);

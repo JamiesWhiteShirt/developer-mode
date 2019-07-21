@@ -20,9 +20,9 @@ minecraft {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.14.3-pre2"
-    mappings "net.fabricmc:yarn:1.14.3-pre2+build.2"
-    modCompile "net.fabricmc:fabric-loader:0.4.8+build.154"
+    minecraft "com.mojang:minecraft:1.14.4"
+    mappings "net.fabricmc:yarn:1.14.4+build.2"
+    modImplementation "net.fabricmc:fabric-loader:0.4.8+build.157"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
@@ -33,12 +33,14 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 artifacts {
-    archives(jar.archivePath) {
-        builtBy remapJar
-    }
-    archives(sourcesJar.archivePath) {
-        builtBy remapSourcesJar
-    }
+	afterEvaluate {
+		archives(remapJar.output) {
+			builtBy remapJar
+		}
+		archives(remapSourcesJar.output) {
+			builtBy remapSourcesJar
+		}
+	}
 }
 
 project.ext.isReleaseVersion = !version.endsWith("-SNAPSHOT")

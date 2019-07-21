@@ -14,7 +14,6 @@ public class DeveloperModeClient implements ClientModInitializer {
     public static boolean shareOptionsEnabled;
     public static boolean rememberNewWorldSettingsEnabled;
     public static int splashFadeTime;
-    public static Level realmsErrorLogLevel;
     public static boolean gameRulesGuiEnabled;
 
     private static Integer getColorProperty(Properties properties, String key) {
@@ -100,7 +99,6 @@ public class DeveloperModeClient implements ClientModInitializer {
         shareOptionsEnabled = getBooleanProperty(properties, "shareOptions.enabled", false);
         rememberNewWorldSettingsEnabled = getBooleanProperty(properties, "rememberNewWorldSettings.enabled", false);
         splashFadeTime = getIntProperty(properties, "splash.fade.time", 1000);
-        realmsErrorLogLevel = getLogLevelProperty(properties, "realms.errorLogLevel", Level.DEBUG);
         gameRulesGuiEnabled = getBooleanProperty(properties, "gameRulesGui.enabled", true);
     }
 }

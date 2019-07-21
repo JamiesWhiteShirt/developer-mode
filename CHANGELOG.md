@@ -1,3 +1,9 @@
+# 1.0.13
+
+- Updated to 1.14.4.
+- Removed the Realms error log level feature as realms is no longer noisy.
+- Added dependency on fabric-resource-loader-v0.
+
 # 1.0.12
 
 - Updated to 1.14.3-pre2.

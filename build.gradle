@@ -1,6 +1,6 @@
 plugins {
     id "fabric-loom" version "0.2.4-SNAPSHOT"
-    id "maven"
+    id "maven-publish"
     id "signing"
 }
 
@@ -46,20 +46,35 @@ artifacts {
 
 project.ext.isReleaseVersion = !version.endsWith("-SNAPSHOT")
 
-signing {
-    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            afterEvaluate {
+                artifact(remapJar.output) {
+                    builtBy remapJar
+                }
+
+                artifact(remapSourcesJar.output) {
+                    builtBy remapSourcesJar
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            def releasesRepoUrl = 'https://maven.jamieswhiteshirt.com/libs-release/'
+            def snapshotsRepoUrl = 'https://maven.jamieswhiteshirt.com/libs-snapshot/'
+            url = isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
+
+            credentials {
+                username project.properties.mavenUser
+                password project.properties.mavenPassword
+            }
+        }
+    }
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: 'https://maven.jamieswhiteshirt.com/libs-release/') {
-            authentication(userName: project.properties.mavenUser, password: project.properties.mavenPassword)
-        }
-        snapshotRepository(url: 'https://maven.jamieswhiteshirt.com/libs-snapshot/') {
-            authentication(userName: project.properties.mavenUser, password: project.properties.mavenPassword)
-        }
-
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-    }
+signing {
+    required = isReleaseVersion
+    sign publishing.publications.mavenJava
 }

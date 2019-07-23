@@ -52,7 +52,7 @@ public abstract class SelectWorldScreenMixin extends Screen implements SelectWor
                 .filter(level -> level.getName().equals(name))
                 .findFirst();
             if (optLevel.isPresent()) {
-                ((WorldListWidget) (Object) this).new LevelItem(levelList, optLevel.get(), levelStorage).play();
+                levelList.new LevelItem(levelList, optLevel.get(), levelStorage).play();
             } else {
                 CreateWorldScreen newLevelScreen = new CreateWorldScreen(this);
                 CreateWorldScreenExtension extension = (CreateWorldScreenExtension) newLevelScreen;

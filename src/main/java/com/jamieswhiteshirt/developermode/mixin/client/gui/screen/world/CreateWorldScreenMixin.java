@@ -2,14 +2,17 @@ package com.jamieswhiteshirt.developermode.mixin.client.gui.screen.world;
 
 import com.jamieswhiteshirt.developermode.DeveloperMode;
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
+import com.jamieswhiteshirt.developermode.client.ItemImageExporter;
 import com.jamieswhiteshirt.developermode.client.NewLevelProperties;
 import com.jamieswhiteshirt.developermode.client.gui.screen.world.GameRulesScreen;
 import com.jamieswhiteshirt.developermode.client.gui.screen.world.CreateWorldScreenExtension;
 import com.jamieswhiteshirt.developermode.common.world.level.LevelInfoExtension;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.GameRules;
@@ -75,6 +78,9 @@ public abstract class CreateWorldScreenMixin extends Screen implements CreateWor
     )
     private void init(CallbackInfo ci) {
         developermode_gameRulesButton = this.addButton(new ButtonWidget(2 * this.width / 3 + 5, 187, 80, 20, I18n.translate("developermode.gameRules"), (buttonWidget_1) -> {
+            try (ItemImageExporter exporter = new ItemImageExporter(256, minecraft.getItemRenderer())) {
+                exporter.render(new ItemStack(Blocks.BLUE_STAINED_GLASS), new File("blue_stained_glass.png"));
+            }
             minecraft.openScreen(new GameRulesScreen(developermode_gameRules, (CreateWorldScreen) (Object) this));
         }));
     }

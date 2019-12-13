@@ -1,3 +1,7 @@
+# 1.0.15
+
+- Updated to 1.15.
+
 # 1.0.14
 
 - Fixed dependency declarations.

@@ -52,16 +52,16 @@ public abstract class SelectWorldScreenMixin extends Screen implements SelectWor
                 .filter(level -> level.getName().equals(name))
                 .findFirst();
             if (optLevel.isPresent()) {
-                levelList.new LevelItem(levelList, optLevel.get(), levelStorage).play();
+                levelList.new Entry(levelList, optLevel.get(), levelStorage).play();
             } else {
-                CreateWorldScreen newLevelScreen = new CreateWorldScreen(this);
-                CreateWorldScreenExtension extension = (CreateWorldScreenExtension) newLevelScreen;
+                CreateWorldScreen createWorldScreen = new CreateWorldScreen(this);
+                CreateWorldScreenExtension extension = (CreateWorldScreenExtension) createWorldScreen;
                 if (DeveloperModeClient.rememberNewWorldSettingsEnabled) {
                     File file = new File(minecraft.runDirectory, "newWorldSettings.json");
                     extension.developermode_setLevelPropertiesFile(file);
                 }
                 extension.developermode_setLevelName(name);
-                minecraft.openScreen(newLevelScreen);
+                minecraft.openScreen(createWorldScreen);
             }
         } catch (LevelStorageException e) {
             DeveloperMode.LOGGER.error("Failed to auto load world", e);

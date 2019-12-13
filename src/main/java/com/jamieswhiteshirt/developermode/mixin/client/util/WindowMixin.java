@@ -1,7 +1,7 @@
 package com.jamieswhiteshirt.developermode.mixin.client.util;
 
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.WindowEventHandler;
 import net.minecraft.client.WindowSettings;
 import net.minecraft.client.util.MonitorTracker;
@@ -29,8 +29,8 @@ public abstract class WindowMixin {
         float r = ((backgroundColor >> 16) & 0xFF) / 255.0F;
         float g = ((backgroundColor >> 8) & 0xFF) / 255.0F;
         float b = (backgroundColor & 0xFF) / 255.0F;
-        GlStateManager.clearColor(r, g, b, a);
-        GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT, false);
+        RenderSystem.clearColor(r, g, b, a);
+        RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT, false);
         GLFW.glfwSwapBuffers(handle);
     }
 }

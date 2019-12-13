@@ -1,10 +1,11 @@
 package com.jamieswhiteshirt.developermode.mixin.client.gui.screen.world;
 
 import com.jamieswhiteshirt.developermode.DeveloperMode;
+import com.jamieswhiteshirt.developermode.client.CreateWorldScreenUtil;
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
 import com.jamieswhiteshirt.developermode.client.NewLevelProperties;
-import com.jamieswhiteshirt.developermode.client.gui.screen.world.GameRulesScreen;
 import com.jamieswhiteshirt.developermode.client.gui.screen.world.CreateWorldScreenExtension;
+import com.jamieswhiteshirt.developermode.client.gui.screen.world.GameRulesScreen;
 import com.jamieswhiteshirt.developermode.common.world.level.LevelInfoExtension;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
@@ -22,7 +23,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin extends Screen implements CreateWorldScreenExtension {
@@ -34,9 +36,8 @@ public abstract class CreateWorldScreenMixin extends Screen implements CreateWor
     @Shadow private int generatorType;
     @Shadow public CompoundTag generatorOptionsTag;
     @Shadow private boolean structures;
-    @Shadow private boolean commandsAllowed;
-    @Shadow private String gameMode;
-    @Shadow private boolean enableBonusItems;
+    @Shadow private boolean cheatsEnabled;
+    @Shadow private boolean bonusChest;
     @Shadow private String levelName;
 
     protected CreateWorldScreenMixin(Text text) {
@@ -70,7 +71,7 @@ public abstract class CreateWorldScreenMixin extends Screen implements CreateWor
         method = "init()V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/screen/world/CreateWorldScreen;method_2710(Z)V"
+            target = "Lnet/minecraft/client/gui/screen/world/CreateWorldScreen;setMoreOptionsOpen(Z)V"
         )
     )
     private void init(CallbackInfo ci) {
@@ -80,11 +81,11 @@ public abstract class CreateWorldScreenMixin extends Screen implements CreateWor
     }
 
     @Inject(
-        method = "method_2710(Z)V",
+        method = "setMoreOptionsOpen(Z)V",
         at = @At("TAIL")
     )
-    private void method_2710(boolean showMoreOptions, CallbackInfo ci) {
-        developermode_gameRulesButton.visible = showMoreOptions && DeveloperModeClient.gameRulesGuiEnabled;
+    private void setMoreOptionsOpen(boolean moreOptionsOpen, CallbackInfo ci) {
+        developermode_gameRulesButton.visible = moreOptionsOpen && DeveloperModeClient.gameRulesGuiEnabled;
     }
 
     @Override
@@ -127,9 +128,10 @@ public abstract class CreateWorldScreenMixin extends Screen implements CreateWor
         properties.generatorName = LevelGeneratorType.TYPES[generatorType].getName();
         properties.generatorOptions = (CompoundTag) generatorOptionsTag.copy();
         properties.mapFeatures = structures;
-        properties.allowCommands = commandsAllowed;
-        properties.bonusItems = enableBonusItems;
-        properties.gameType = gameMode;
+        properties.allowCommands = cheatsEnabled;
+        properties.bonusItems = bonusChest;
+        Object currentMode = CreateWorldScreenUtil.getCurrentMode((CreateWorldScreen)(Object) this);
+        properties.gameType = CreateWorldScreenUtil.getModeTranslationSuffix(currentMode);
         properties.gameRules = developermode_gameRules;
         return properties;
     }
@@ -140,9 +142,13 @@ public abstract class CreateWorldScreenMixin extends Screen implements CreateWor
         generatorType = levelGeneratorType != null ? levelGeneratorType.getId() : 0;
         generatorOptionsTag = (CompoundTag) properties.generatorOptions.copy();
         structures = properties.mapFeatures;
-        commandsAllowed = properties.allowCommands;
-        enableBonusItems = properties.bonusItems;
-        gameMode = properties.gameType;
+        cheatsEnabled = properties.allowCommands;
+        bonusChest = properties.bonusItems;
+        for (Object mode : CreateWorldScreenUtil.MODE_CLASS.getEnumConstants()) {
+            if (CreateWorldScreenUtil.getModeTranslationSuffix(mode).equals(properties.gameType)) {
+                CreateWorldScreenUtil.setCurrentMode((CreateWorldScreen)(Object) this, mode);
+            }
+        }
         developermode_gameRules = properties.gameRules;
     }
 }

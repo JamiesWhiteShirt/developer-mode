@@ -12,18 +12,22 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Optional;
+import java.util.function.Consumer;
+
 @Mixin(SplashScreen.class)
 public abstract class SplashScreenMixin extends Overlay {
-    @Mutable @Shadow @Final private boolean field_18219;
+    @Mutable @Shadow @Final private boolean reloading;
     @Shadow @Final private MinecraftClient client;
 
     @Inject(
         at = @At("RETURN"),
-        method = "<init>(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/resource/ResourceReloadMonitor;Ljava/lang/Runnable;Z)V"
+        method = "<init>(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/resource/ResourceReloadMonitor;Ljava/util/function/Consumer;Z)V"
     )
-    private void constructor(MinecraftClient minecraftClient_1, ResourceReloadMonitor resourceReloadHandler_1, Runnable runnable_1, boolean boolean_1, CallbackInfo ci) {
+    private void constructor(MinecraftClient client, ResourceReloadMonitor resourceReloadMonitor, Consumer<Optional<Throwable>> consumer, boolean reloading, CallbackInfo ci) {
+        // TODO: DO we need this?
         if (DeveloperModeClient.splashFadeTime <= 0) {
-            field_18219 = true;
+            // this.reloading = true;
         }
     }
 
@@ -58,7 +62,7 @@ public abstract class SplashScreenMixin extends Overlay {
     private int backgroundColor(int x, int y, int width, int height, int color) {
         // In case someone else injects drawRect calls in this method
         // We'll assume it's drawing a background if drawRect covers the whole screen exactly
-        if (x == 0 && y == 0 && width == client.window.getScaledWidth() && height == client.window.getScaledHeight()) {
+        if (x == 0 && y == 0 && width == client.getWindow().getScaledWidth() && height == client.getWindow().getScaledHeight()) {
             return DeveloperModeClient.theme.getBackgroundColor(color);
         } else {
             return color;
@@ -71,7 +75,7 @@ public abstract class SplashScreenMixin extends Overlay {
             target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V",
             ordinal = 0
         ),
-        method = "renderProgressBar(IIIIFF)V",
+        method = "renderProgressBar(IIIIF)V",
         index = 4
     )
     private int progressBarOutlineColor(int i) {
@@ -84,7 +88,7 @@ public abstract class SplashScreenMixin extends Overlay {
             target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V",
             ordinal = 1
         ),
-        method = "renderProgressBar(IIIIFF)V",
+        method = "renderProgressBar(IIIIF)V",
         index = 4
     )
     private int progressBarBackgroundColor(int i) {
@@ -97,7 +101,7 @@ public abstract class SplashScreenMixin extends Overlay {
             target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V",
             ordinal = 2
         ),
-        method = "renderProgressBar(IIIIFF)V",
+        method = "renderProgressBar(IIIIF)V",
         index = 4
     )
     private int progressBarFillColor(int i) {

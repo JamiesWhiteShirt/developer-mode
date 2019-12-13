@@ -31,7 +31,7 @@ public abstract class MinecraftClientMixin {
             target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/screen/Screen;)V",
             ordinal = 1
         ),
-        method = "init()V"
+        method = "<init>(Lnet/minecraft/client/RunArgs;)V"
     )
     private void init(MinecraftClient client, Screen original) {
         if (developermode_autoWorld != null) {

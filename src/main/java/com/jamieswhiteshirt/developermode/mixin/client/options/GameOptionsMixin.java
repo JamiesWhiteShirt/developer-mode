@@ -1,10 +1,12 @@
 package com.jamieswhiteshirt.developermode.mixin.client.options;
 
+import com.google.common.base.Splitter;
 import com.jamieswhiteshirt.developermode.DeveloperMode;
 import com.jamieswhiteshirt.developermode.client.DeveloperModeClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.options.GameOptions;
 import org.apache.commons.io.IOUtils;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +25,7 @@ public abstract class GameOptionsMixin {
         for (String line : list_1) {
             try {
                 // Use more lenient parsing here. GameOptions can deal with the empty ones.
-                Iterator<String> iterator = GameOptions.COLON_SPLITTER.limit(2).split(line).iterator();
+                Iterator<String> iterator = COLON_SPLITTER.limit(2).split(line).iterator();
                 keyValues.put(iterator.next(), iterator.next());
             } catch (Exception var10) {
                 DeveloperMode.LOGGER.warn("Skipping bad option: {}", line);
@@ -35,6 +37,8 @@ public abstract class GameOptionsMixin {
         IOUtils.writeLines(keyValues.entrySet().stream().map(entry -> entry.getKey() + ":" + entry.getValue()).collect(Collectors.toList()), System.lineSeparator(), out);
     }
 
+    @Shadow @Final
+    private static Splitter COLON_SPLITTER;
     @Shadow private File optionsFile;
 
     private File developermode_optionsShareFile = new File(MinecraftClient.getInstance().runDirectory, "options.share.txt");

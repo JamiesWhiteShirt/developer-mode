@@ -100,3 +100,12 @@ modelPart_right_sleeve:global
 modelPart_left_pants_leg:global
 modelPart_right_pants_leg:global
 modelPart_hat:global
+discrete_mouse_scroll:global
+toggleCrouch:global
+toggleSprint:global
+textBackgroundOpacity:global
+backgroundForChatOnly:global
+rawMouseInput:global
+resourcePacks:local
+incompatibleResourcePacks:local
+lastServer:local

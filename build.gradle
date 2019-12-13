@@ -1,5 +1,5 @@
 plugins {
-    id "fabric-loom" version "0.2.4-SNAPSHOT"
+    id "fabric-loom" version "0.2.6-SNAPSHOT"
     id "maven-publish"
     id "signing"
 }
@@ -20,28 +20,17 @@ minecraft {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.14.4"
-    mappings "net.fabricmc:yarn:1.14.4+build.2"
-    modImplementation "net.fabricmc:fabric-loader:0.4.8+build.157"
+    minecraft "com.mojang:minecraft:1.15"
+    mappings "net.fabricmc:yarn:1.15+build.2:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.7.2+build.174"
     modImplementation "net.fabricmc.fabric-api:fabric-resource-loader-v0:0.1.+"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = 'sources'
+	archiveClassifier = 'sources'
 	from sourceSets.main.allSource
-}
-
-artifacts {
-	afterEvaluate {
-		archives(remapJar.output) {
-			builtBy remapJar
-		}
-		archives(remapSourcesJar.output) {
-			builtBy remapSourcesJar
-		}
-	}
 }
 
 project.ext.isReleaseVersion = !version.endsWith("-SNAPSHOT")
@@ -50,11 +39,8 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             afterEvaluate {
-                artifact(remapJar.output) {
-                    builtBy remapJar
-                }
-
-                artifact(remapSourcesJar.output) {
+                artifact remapJar
+                artifact(sourcesJar.archiveFile) {
                     classifier = "sources"
                     builtBy remapSourcesJar
                 }

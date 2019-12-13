@@ -5,7 +5,7 @@
   "mixins": [
     "world.level.LevelInfoMixin",
     "world.level.LevelPropertiesMixin",
-    "world.GameRules$IntRuleMixin"
+    "world.GameRules$IntRuleAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

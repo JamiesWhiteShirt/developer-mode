@@ -28,7 +28,7 @@ dependencies {
 
 ## Configuration
 
-### `./config/developer-mode/client.settings.properties`
+### `./config/developer-mode/client.config.properties`
 
 ```properties
 # Theme for the loading screen
